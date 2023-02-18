@@ -12,12 +12,13 @@ public class Workspace extends Gmail{
 
     public Workspace(String emailId) {
         // The inboxCapacity is equal to the maximum value an integer can store.
-
+super(emailId,Integer.MAX_VALUE);
+calendar = new ArrayList<>();
     }
 
     public void addMeeting(Meeting meeting){
         //add the meeting to calendar
-
+      calendar.add(meeting);
     }
 
     public int findMaxMeetings(){
@@ -26,5 +27,18 @@ public class Workspace extends Gmail{
         // 2. If you want to attend a meeting, you must join it at its start time and leave at end time.
         // Example: If a meeting ends at 10:00 am, you cannot attend another meeting starting at 10:00 am
 
+        int count =0;
+        ArrayList<Pair<LocalTime,Integer>>endtime = new ArrayList<>();
+        for (int i=0;i<calendar.size();i++){
+            endtime.add(Pair.of(calendar.get(i).getEndTime(),i));
+        }
+        Collections.sort(endtime);
+        LocalTime localTime = endtime.get(0).getLeft();
+        if(!endtime.isEmpty())count++;
+        for (int i=1;i<endtime.size();i++){
+            count++;
+            localTime = endtime.get(i).getLeft();
+        }
+        return count;
     }
 }
