@@ -32,7 +32,8 @@ calendar = new ArrayList<>();
         for (int i=0;i<calendar.size();i++){
             endtime.add(Pair.of(calendar.get(i).getEndTime(),i));
         }
-        Collections.sort(endtime);
+        Collections.sort(endtime);  //sorting meedting endtime
+
         LocalTime localTime = endtime.get(0).getLeft();
         if(!endtime.isEmpty())count++;
         for (int i=1;i<endtime.size();i++){

@@ -66,7 +66,7 @@ public class Gmail extends Email {
 
         if(inbox.size()==inboxCapacity){
           trash.add(inbox.get(0));
-          trash.remove(0);
+          inbox.remove(0);
         }
         inbox.add(new Mail(date,sender,message));
     }
