@@ -32,17 +32,17 @@ public class Email {
            //uppercase
 
            for(int i=0;i<newPassword.length();i++){
-
-               if(newPassword.charAt(i)>=65 && newPassword.charAt(i)<=90){
+              char ch = newPassword.charAt(i);
+               if(ch >=65 && ch<=90){
                    isCapital++;
                }
 
            //lowercase
-              else if(newPassword.charAt(i)>=90 && newPassword.charAt(i)<=122){
+              else if(ch >=90 && ch <=122){
                    isLowerCase++;
                }
 //digit
-           else if(Character.isDigit(newPassword.charAt(i))){
+           else if(Character.isDigit(ch)){
                    isdigit++;
                }
                else {

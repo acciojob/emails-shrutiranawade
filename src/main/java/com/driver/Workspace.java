@@ -28,7 +28,7 @@ calendar = new ArrayList<>();
         // Example: If a meeting ends at 10:00 am, you cannot attend another meeting starting at 10:00 am
 
         int count =0;
-        ArrayList<Pair<LocalTime,Integer>>endtime = new ArrayList<>();
+        ArrayList<Pair<LocalTime,Integer>>endtime = new ArrayList<>();   //time ,index pair into Arraylist
         for (int i=0;i<calendar.size();i++){
             endtime.add(Pair.of(calendar.get(i).getEndTime(),i));
         }
@@ -37,8 +37,10 @@ calendar = new ArrayList<>();
         LocalTime localTime = endtime.get(0).getLeft();
         if(!endtime.isEmpty())count++;
         for (int i=1;i<endtime.size();i++){
-            count++;
-            localTime = endtime.get(i).getLeft();
+            if (calendar.get(endtime.get(i).getRight()).getStartTime().compareTo(localTime)>0) {
+                count++;
+                localTime = endtime.get(i).getLeft();
+            }
         }
         return count;
     }

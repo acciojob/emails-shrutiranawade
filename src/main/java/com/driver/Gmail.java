@@ -1,5 +1,7 @@
 package com.driver;
 
+import org.apache.commons.lang3.tuple.Triple;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.PriorityQueue;
@@ -43,8 +45,8 @@ public class Gmail extends Email {
             this.message = message;
         }
     }
-    ArrayList<Mail> inbox;
-    ArrayList<Mail> trash;
+    ArrayList<Triple<Date,String,String>> inbox;
+    ArrayList<Triple<Date,String,String>> trash;
     int inboxCapacity; //maximum number of mails inbox can store
     //Inbox: Stores mails. Each mail has date (Date), sender (String), message (String). It is guaranteed that message is distinct for all mails.
     //Trash: Stores mails. Each mail has date (Date), sender (String), message (String)
@@ -65,20 +67,27 @@ public class Gmail extends Email {
         // 2. The mails are received in non-decreasing order. This means that the date of a new mail is greater than equal to the dates of mails received already.
 
         if(inbox.size()==inboxCapacity){
-          trash.add(inbox.get(0));
-          inbox.remove(0);
+            Triple<Date,String,String>oldestMail = inbox.get(0);
+          trash.add(oldestMail);
+          inbox.remove(oldestMail);
         }
-        inbox.add(new Mail(date,sender,message));
+        Triple<Date,String,String> mail = Triple.of(date,sender,message);
+        inbox.add(mail);
     }
 
     public void deleteMail(String message){
         // Each message is distinct
         // If the given message is found in any mail in the inbox, move the mail to trash, else do nothing
+        int index =-1;
         for(int i=0;i<inbox.size();i++) {
-            if (inbox.get(i).getMessage().equals(message)) {
-                trash.add(inbox.get(i));
-                inbox.remove(i);
+            if (inbox.get(i).getRight().equals(message)) {
+                index =i;
+
                 break;
+            }
+            if(index != -1){
+                trash.add(inbox.get(index));
+                inbox.remove(index);
             }
         }
     }
@@ -89,7 +98,7 @@ public class Gmail extends Email {
         if(inbox.size()==0){
             return null;
         }else{
-            return inbox.get(inbox.size()-1).getMessage();
+            return inbox.get(inbox.size()-1).getRight();
         }
     }
 
@@ -99,7 +108,7 @@ public class Gmail extends Email {
         if(inbox.size()==0){
             return null;
         }else{
-            return inbox.get(0).getMessage();
+            return inbox.get(0).getRight();
         }
     }
 
@@ -108,9 +117,7 @@ public class Gmail extends Email {
         //It is guaranteed that start date <= end date
         int count=0;
         for (int i=0;i<inbox.size();i++) {
-            int startT = inbox.get(i).getDate().compareTo(start) ;
-            int endT = inbox.get(i).getDate().compareTo(end) ;
-            if(endT<=0 && startT>=0) count++;
+           if(inbox.get(i).getLeft().compareTo(start)>=0 && inbox.get(i).getLeft().compareTo(end)<=0)count++;
         }
         return count;
 
