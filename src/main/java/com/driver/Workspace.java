@@ -36,7 +36,9 @@ calendar = new ArrayList<>();
         Collections.sort(endtime);  //sorting meedting endtime
 
         LocalTime localTime = endtime.get(0).getLeft(); //start of 1st meeting
-        if(!endtime.isEmpty())count++;
+        if(!endtime.isEmpty()){
+            count++;
+        }
         for (int i=1;i<endtime.size();i++){  //start from 2nd meeting
             if (calendar.get(endtime.get(i).getRight()).getStartTime().compareTo(localTime)>0) {
                 //2nd meeting(i)s starting time is greater than 1st meetings end time count++

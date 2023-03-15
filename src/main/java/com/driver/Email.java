@@ -26,7 +26,7 @@ public class Email {
         // 4. It contains at least one digit
         // 5. It contains at least one special character. Any character apart from alphabets and digits is a special character
         int isCapital =0; int isLowerCase =0;  int isdigit =0;int isSpecialChar =0;
-   if(oldPassword == this.password){
+   if(oldPassword == password){
 
        if(newPassword.length()>=8){
            //uppercase
@@ -38,7 +38,7 @@ public class Email {
                }
 
            //lowercase
-              else if(ch >=90 && ch <=122){
+              else if(ch >='a' && ch <='z'){
                    isLowerCase++;
                }
 //digit
