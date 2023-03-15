@@ -31,6 +31,7 @@ public class Email {
             if (isValidPassword(newPassword)) {
 
                 System.out.println("Password changed Successfully.");
+                this.password= newPassword;
             } else {
                 System.out.println("Short length password.");
             }
