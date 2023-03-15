@@ -48,15 +48,15 @@ public class Email {
                else {
                    isSpecialChar++;
                }
-           }      }
-       else{
-           System.out.println("Please enter correct Password.");
+           }
+           if(isCapital >0||isLowerCase >0||isdigit>0||isSpecialChar>0){
+               this.password = newPassword;
+               System.out.println("Password changed Successfully.");
+           }
        }
-
-        if(isCapital >0||isLowerCase >0||isdigit>0||isSpecialChar>0){
-            this.password = newPassword;
-            System.out.println("Password changed Successfully.");
-        }
+       else{
+           System.out.println("Short length password.");
+       }
    }
    else{
        System.out.println("Password doesn't matching.Please enter correct Password.");

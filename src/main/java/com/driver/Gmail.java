@@ -45,16 +45,16 @@ public class Gmail extends Email {
             this.message = message;
         }
     }
-    ArrayList<Triple<Date,String,String>> inbox;
-    ArrayList<Triple<Date,String,String>> trash;
+    ArrayList<Triple<Date,String,String>> inbox;  //collection of mails
+    ArrayList<Triple<Date,String,String>> trash;  //collection of deleted mails
     int inboxCapacity; //maximum number of mails inbox can store
     //Inbox: Stores mails. Each mail has date (Date), sender (String), message (String). It is guaranteed that message is distinct for all mails.
     //Trash: Stores mails. Each mail has date (Date), sender (String), message (String)
     public Gmail(String emailId, int inboxCapacity) {
        super(emailId);
       this.inboxCapacity = inboxCapacity;
-      inbox = new ArrayList<>();
-      trash = new ArrayList<>();
+      inbox = new ArrayList<>();  //initialisation
+      trash = new ArrayList<>();  //initialisation
     }
     public void setInboxCapacity(int inboxCapacity) {
         this.inboxCapacity = inboxCapacity;
@@ -66,8 +66,8 @@ public class Gmail extends Email {
         // 1. Each mail in the inbox is distinct.
         // 2. The mails are received in non-decreasing order. This means that the date of a new mail is greater than equal to the dates of mails received already.
 
-        if(inbox.size()==inboxCapacity){
-            Triple<Date,String,String>oldestMail = inbox.get(0);
+        if(inbox.size()==inboxCapacity){       //Arraylist size method use
+            Triple<Date,String,String>oldestMail = inbox.get(0);   //first 0th mail in inbox
           trash.add(oldestMail);
           inbox.remove(oldestMail);
         }
@@ -80,8 +80,8 @@ public class Gmail extends Email {
         // If the given message is found in any mail in the inbox, move the mail to trash, else do nothing
 
         for(int i=0;i<inbox.size();i++) {
-            if (inbox.get(i).getRight().equals(message)) {
-                trash.add(inbox.get(i));
+            if (inbox.get(i).getRight().equals(message)) {  //right position is message in triplet
+                trash.add(inbox.get(i)); //add that mail in trash & remove from inbox
                 inbox.remove(i);
                 break;
             }
@@ -115,6 +115,7 @@ public class Gmail extends Email {
         int count=0;
         for (int i=0;i<inbox.size();i++) {
            if(inbox.get(i).getLeft().compareTo(start)>=0 && inbox.get(i).getLeft().compareTo(end)<=0)count++;
+           //date is greater or equal to start & less or equal to end date count++
         }
         return count;
 
